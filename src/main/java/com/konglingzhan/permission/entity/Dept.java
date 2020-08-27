@@ -1,0 +1,43 @@
+package com.konglingzhan.permission.entity;
+
+import com.konglingzhan.permission.common.converter.TimeConverter;
+import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.Date;
+
+
+@Data
+@Entity
+@Table(name = "t_dept")
+public class Dept implements Serializable {
+
+    private static final long serialVersionUID = -7790334862410409053L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long deptId;
+
+    private Long parentId;
+
+    @NotBlank(message = "{required}")
+    @Size(max = 20, message = "{noMoreThan}")
+    @ExcelField(value = "部门名称")
+    private String deptName;
+
+    private Double orderNum;
+
+    @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
+    private Date createTime;
+
+    @ExcelField(value = "修改时间", writeConverter = TimeConverter.class)
+    private Date modifyTime;
+
+    private transient String createTimeFrom;
+
+    private transient String createTimeTo;
+}
